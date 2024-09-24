@@ -1,3 +1,6 @@
 import "./style.css";
+import { initGame } from "./ui";
 
-console.log("Hello from main");
+document.addEventListener("DOMContentLoaded", () => {
+  initGame();
+});
