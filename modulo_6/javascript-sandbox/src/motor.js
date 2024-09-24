@@ -8,12 +8,21 @@ import {
   mostrarMensajeVictoria,
 } from "./ui";
 
+export const generarRandomCarta = () => {
+  let newCarta = Math.floor(Math.random() * MAX_CARTA) + MIN_CARTA;
+  if (newCarta > 7) newCarta += 2;
+  return newCarta;
+};
+
+export const comprobarPuntuacionCarta = (carta) => {
+  if (carta === 10 || carta === 11 || carta === 12) carta = 0.5;
+  carta = carta;
+};
+
 export const dameCarta = () => {
-  let randomCarta = Math.floor(Math.random() * MAX_CARTA) + MIN_CARTA;
-  if (randomCarta > 7) randomCarta += 2;
+  let randomCarta = generarRandomCarta();
   mostrarCarta(randomCarta);
-  if (randomCarta === 10 || randomCarta === 11 || randomCarta === 12)
-    randomCarta = 0.5;
+  comprobarPuntuacionCarta(randomCarta);
   setPuntuacion(puntuacion + randomCarta);
   muestraPuntuacion();
   mostrarMensajeVictoria();
