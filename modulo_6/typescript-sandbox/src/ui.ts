@@ -2,10 +2,7 @@ import { puntuacion, setNuevaPuntuacion } from "./model";
 
 import {
   comprobarPuntuacion,
-  generarRandomCarta,
-  comprobarCartaMayorASiete,
   comprobarMensajeFuturo,
-  setPuntuacion,
   dameCarta,
 } from "./motor";
 
@@ -97,10 +94,8 @@ export const reiniciarJuego = () => {
 
 export const queHubieraPasado = () => {
   if (resultado) resultado.textContent = "";
-  const futuraCarta = generarRandomCarta();
-  comprobarCartaMayorASiete(futuraCarta);
+  const futuraCarta = dameCarta();
   mostrarCarta(futuraCarta);
-  setPuntuacion(futuraCarta);
   muestraPuntuacion();
   if (resultado2) resultado2.textContent = comprobarMensajeFuturo();
   if (futuroButton) {
