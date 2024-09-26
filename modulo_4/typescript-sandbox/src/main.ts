@@ -7,7 +7,7 @@ const resetButton = document.getElementById("resetButton");
 const turnoInput = document.getElementById("custom-turn");
 
 const incrementarTurno = () => {
-  if (turno instanceof HTMLParagraphElement) {
+  if (turno && turno instanceof HTMLParagraphElement) {
     let numTurno = 0;
     numTurno = parseInt(turno.innerHTML) + 1;
     turno.textContent = numTurno.toString().padStart(2, "0");
@@ -16,7 +16,7 @@ const incrementarTurno = () => {
 };
 
 const reducirTurno = () => {
-  if (turno instanceof HTMLParagraphElement) {
+  if (turno && turno instanceof HTMLParagraphElement) {
     let numTurno = 0;
     numTurno = parseInt(turno.innerHTML) - 1;
     turno.textContent = numTurno.toString().padStart(2, "0");
@@ -25,7 +25,7 @@ const reducirTurno = () => {
 };
 
 const reiniciarTurno = () => {
-  if (turno instanceof HTMLElement) {
+  if (turno && turno instanceof HTMLElement) {
     turno.innerHTML = "00";
     deshabilitarBotones();
   }
@@ -33,8 +33,11 @@ const reiniciarTurno = () => {
 
 const deshabilitarBotones = () => {
   if (
+    turno &&
     turno instanceof HTMLElement &&
+    prevButton &&
     prevButton instanceof HTMLButtonElement &&
+    resetButton &&
     resetButton instanceof HTMLButtonElement
   ) {
     if (turno.innerHTML === "00") {
@@ -53,7 +56,12 @@ const comprobarInputPositivo = (numero: number) => {
 };
 
 const mostrarTurnoInput = () => {
-  if (turnoInput instanceof HTMLInputElement && turno instanceof HTMLElement) {
+  if (
+    turnoInput &&
+    turnoInput instanceof HTMLInputElement &&
+    turno &&
+    turno instanceof HTMLElement
+  ) {
     let numInput = parseInt(turnoInput.value);
     if (comprobarInputPositivo(numInput)) {
       turno.innerHTML = turnoInput.value;
@@ -66,8 +74,11 @@ const mostrarTurnoInput = () => {
 
 document.addEventListener("DOMContentLoaded", () => {
   if (
+    nextButton &&
     nextButton instanceof HTMLButtonElement &&
+    prevButton &&
     prevButton instanceof HTMLButtonElement &&
+    resetButton &&
     resetButton instanceof HTMLButtonElement
   ) {
     nextButton.addEventListener("click", incrementarTurno);
@@ -75,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
     resetButton.addEventListener("click", reiniciarTurno);
   }
 
-  if (turnoInput instanceof HTMLInputElement) {
+  if (turnoInput && turnoInput instanceof HTMLInputElement) {
     turnoInput.addEventListener("keyup", (e) => {
       if (e.key === "Enter") {
         mostrarTurnoInput();
