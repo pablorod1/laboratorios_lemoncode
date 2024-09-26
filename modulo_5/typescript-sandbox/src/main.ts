@@ -17,6 +17,7 @@ const cartasContainer = document.getElementById("cartas-container");
 const muestraPuntuacion = () => {
   if (puntuacionElement)
     puntuacionElement.textContent = `Puntuación: ${puntuacion}`;
+  if (mePlantoButton && puntuacion > 0) mePlantoButton.style.display = "block";
 };
 
 const setPuntuacion = (carta: number) => {
@@ -49,7 +50,6 @@ const dameCarta = () => {
   setPuntuacion(carta);
   console.log(puntuacion);
   muestraPuntuacion();
-  if (mePlantoButton) mePlantoButton.style.display = "block";
   gameOver();
 };
 
