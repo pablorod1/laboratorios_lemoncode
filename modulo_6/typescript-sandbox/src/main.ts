@@ -1,3 +1,5 @@
 import "./style.css";
 
-console.log("Hello Typescript!");
+import { initGame } from "./ui";
+
+document.addEventListener("DOMContentLoaded", initGame);
