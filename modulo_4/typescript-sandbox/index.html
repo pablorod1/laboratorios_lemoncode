@@ -1,15 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
-  </head>
-  <body>
-    <div id="app">
-      <h1>TypeScript Sandbox</h1>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="stylesheet" href="./src/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite + TS</title>
+</head>
+
+<body>
+  <div class="turno-display">
+    <div class="btn-container">
+      <button id="prevButton" type="button" class="btn-control">Anterior</button>
+      <button id="nextButton" type="button" class="btn-control">Siguiente</button>
+      <button id="resetButton" type="button" class="btn-control">Restablecer</button>
     </div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+    <h1 class="numero-turno">01</h1>
+    <p class="texto-turno">Por favor, acérquese al mostrador</p>
+    <div class="input-group">
+      <label class="input-label" for="custom-turn">Introduce un turno<br> (Presiona <kbd>Intro</kbd> para
+        confirmar)</label>
+      <input min="0" id="custom-turn" type="number" class="input-turn">
+    </div>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>
