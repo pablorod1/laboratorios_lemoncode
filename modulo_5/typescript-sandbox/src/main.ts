@@ -149,10 +149,6 @@ const initGame = () => {
   if (gameOverElement) gameOverElement.style.display = "none";
   if (mePlantoButton) mePlantoButton.style.display = "none";
   if (futuroButton) futuroButton.style.display = "none";
-};
-
-document.addEventListener("DOMContentLoaded", () => {
-  initGame();
 
   if (dameCartaButton) dameCartaButton.addEventListener("click", dameCarta);
 
@@ -165,4 +161,6 @@ document.addEventListener("DOMContentLoaded", () => {
     reiniciarButton.addEventListener("click", reiniciarJuego);
   if (reiniciarGameOverButton)
     reiniciarGameOverButton.addEventListener("click", reiniciarJuego);
-});
+};
+
+document.addEventListener("DOMContentLoaded", initGame);
