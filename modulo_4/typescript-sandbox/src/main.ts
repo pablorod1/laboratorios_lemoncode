@@ -4,37 +4,40 @@ const turno = document.querySelector(".numero-turno");
 const nextButton = document.getElementById("nextButton");
 const prevButton = document.getElementById("prevButton");
 const resetButton = document.getElementById("resetButton");
-const turnoInput = document.getElementById("custom-turn") as HTMLInputElement;
+const turnoInput = document.getElementById("custom-turn");
 
 const incrementarTurno = () => {
-  if (turno && turno.textContent) {
+  if (turno instanceof HTMLParagraphElement) {
     let numTurno = 0;
-    numTurno = parseInt(turno.textContent) + 1;
+    numTurno = parseInt(turno.innerHTML) + 1;
     turno.textContent = numTurno.toString().padStart(2, "0");
     deshabilitarBotones();
   }
 };
 
 const reducirTurno = () => {
-  if (turno && turno.textContent) {
+  if (turno instanceof HTMLParagraphElement) {
     let numTurno = 0;
-    numTurno = parseInt(turno.textContent) - 1;
+    numTurno = parseInt(turno.innerHTML) - 1;
     turno.textContent = numTurno.toString().padStart(2, "0");
     deshabilitarBotones();
-    console.log(turno.textContent);
   }
 };
 
 const reiniciarTurno = () => {
-  if (turno && turno.textContent) {
-    turno.textContent = "00";
+  if (turno instanceof HTMLElement) {
+    turno.innerHTML = "00";
     deshabilitarBotones();
   }
 };
 
 const deshabilitarBotones = () => {
-  if (turno && turno.textContent && prevButton && resetButton) {
-    if (turno.textContent === "00") {
+  if (
+    turno instanceof HTMLElement &&
+    prevButton instanceof HTMLButtonElement &&
+    resetButton instanceof HTMLButtonElement
+  ) {
+    if (turno.innerHTML === "00") {
       prevButton.classList.add("disabled");
       resetButton.classList.add("disabled");
     } else {
@@ -50,10 +53,10 @@ const comprobarInputPositivo = (numero: number) => {
 };
 
 const mostrarTurnoInput = () => {
-  if (turnoInput && turnoInput.value && turno) {
+  if (turnoInput instanceof HTMLInputElement && turno instanceof HTMLElement) {
     let numInput = parseInt(turnoInput.value);
     if (comprobarInputPositivo(numInput)) {
-      turno.textContent = turnoInput.value;
+      turno.innerHTML = turnoInput.value;
     } else {
       alert("El turno debe ser un número entre 0 y 99");
     }
@@ -62,13 +65,17 @@ const mostrarTurnoInput = () => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  if (nextButton && prevButton && resetButton) {
+  if (
+    nextButton instanceof HTMLButtonElement &&
+    prevButton instanceof HTMLButtonElement &&
+    resetButton instanceof HTMLButtonElement
+  ) {
     nextButton.addEventListener("click", incrementarTurno);
     prevButton.addEventListener("click", reducirTurno);
     resetButton.addEventListener("click", reiniciarTurno);
   }
 
-  if (turnoInput) {
+  if (turnoInput instanceof HTMLInputElement) {
     turnoInput.addEventListener("keyup", (e) => {
       if (e.key === "Enter") {
         mostrarTurnoInput();
