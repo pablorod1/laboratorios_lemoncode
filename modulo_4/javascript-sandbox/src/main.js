@@ -1,42 +1,44 @@
 import "./style.css";
 
-// Buttons
-const prevButton = document.getElementById("prevButton");
+const turno = document.querySelector(".numero-turno");
 const nextButton = document.getElementById("nextButton");
+const prevButton = document.getElementById("prevButton");
 const resetButton = document.getElementById("resetButton");
-
-// Turn
-const turnElement = document.querySelector(".numero-turno");
-const turnInput = document.getElementById("custom-turn");
+const turnoInput = document.getElementById("custom-turn");
 
 const incrementarTurno = () => {
-  if (turnElement && typeof turnElement === HTMLParagraphElement) {
-    turnElement.innerHTML = parseInt(turno.innerHTML) + 1;
-    turnElement.innerHTML = turnElement.padStart(2, "0");
+  if (turno && turno instanceof HTMLParagraphElement) {
+    let numTurno = 0;
+    numTurno = parseInt(turno.innerHTML) + 1;
+    turno.textContent = numTurno.toString().padStart(2, "0");
+    deshabilitarBotones();
   }
 };
 
 const reducirTurno = () => {
-  if (turnElement && typeof turnElement === HTMLParagraphElement) {
-    turnElement.innerHTML = parseInt(turno.innerHTML) - 1;
-    turnElement.innerHTML = turnElement.padStart(2, "0");
+  if (turno && turno instanceof HTMLParagraphElement) {
+    let numTurno = 0;
+    numTurno = parseInt(turno.innerHTML) - 1;
+    turno.textContent = numTurno.toString().padStart(2, "0");
+    deshabilitarBotones();
   }
 };
 
 const reiniciarTurno = () => {
-  if (turnElement && typeof turnElement === HTMLParagraphElement) {
-    turnElement.innerHTML = "00";
+  if (turno && turno instanceof HTMLParagraphElement) {
+    turno.innerHTML = "00";
+    deshabilitarBotones();
   }
 };
 
 const deshabilitarBotones = () => {
   if (
-    turnElement &&
-    typeof turnElement === HTMLParagraphElement &&
+    turno &&
+    turno instanceof HTMLElement &&
     prevButton &&
-    typeof prevButton === HTMLButtonElement &&
+    prevButton instanceof HTMLButtonElement &&
     resetButton &&
-    typeof resetButton === HTMLButtonElement
+    resetButton instanceof HTMLButtonElement
   ) {
     if (turno.innerHTML === "00") {
       prevButton.classList.add("disabled");
@@ -49,41 +51,46 @@ const deshabilitarBotones = () => {
 };
 
 const comprobarInputPositivo = (numero) => {
-  return 0 < numero < 99 ? true : false;
+  if (numero > 0 && numero < 99) return true;
+  return false;
 };
 
 const mostrarTurnoInput = () => {
   if (
-    turnInput &&
-    typeof turnInput === HTMLInputElement &&
-    turnElement &&
-    typeof turnElement === HTMLParagraphElement
+    turnoInput &&
+    turnoInput instanceof HTMLInputElement &&
+    turno &&
+    turno instanceof HTMLElement
   ) {
-    let numInput = parseInt(turnInput.value);
-    comprobarInputPositivo(numInput)
-      ? (turnElement.innerHTML = turnInput.value)
-      : alert("El turno debe ser un número entre 0 y 99");
-    turnInput.value = "";
+    let numInput = parseInt(turnoInput.value);
+    if (comprobarInputPositivo(numInput)) {
+      turno.innerHTML = turnoInput.value;
+    } else {
+      alert("El turno debe ser un número entre 0 y 99");
+    }
+    turnoInput.value = "";
   }
 };
 
 document.addEventListener("DOMContentLoaded", () => {
   if (
     nextButton &&
-    typeof nextButton === HTMLButtonElement &&
+    nextButton instanceof HTMLButtonElement &&
     prevButton &&
-    typeof prevButton === HTMLButtonElement &&
+    prevButton instanceof HTMLButtonElement &&
     resetButton &&
-    typeof resetButton === HTMLButtonElement
+    resetButton instanceof HTMLButtonElement
   ) {
     nextButton.addEventListener("click", incrementarTurno);
     prevButton.addEventListener("click", reducirTurno);
     resetButton.addEventListener("click", reiniciarTurno);
   }
 
-  if (turnInput && typeof turnInput === HTMLInputElement) {
-    turnInput.addEventListener("keyup", (e) => {
-      if (e.key === "Enter") mostrarTurnoInput();
+  if (turnoInput && turnoInput instanceof HTMLInputElement) {
+    turnoInput.addEventListener("keyup", (e) => {
+      if (e.key === "Enter") {
+        mostrarTurnoInput();
+      }
     });
   }
 });
