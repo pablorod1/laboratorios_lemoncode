@@ -25,7 +25,7 @@ const reducirTurno = () => {
 };
 
 const reiniciarTurno = () => {
-  if (turno && turno instanceof HTMLElement) {
+  if (turno && turno instanceof HTMLParagraphElement) {
     turno.innerHTML = "00";
     deshabilitarBotones();
   }
