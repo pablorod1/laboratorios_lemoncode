@@ -15,23 +15,32 @@ const resultado2 = document.getElementById("resultado2");
 const cartasContainer = document.getElementById("cartas-container");
 
 const muestraPuntuacion = () => {
-  puntuacionElement.textContent = `Puntuación: ${puntuacion}`;
+  if (puntuacionElement && puntuacionElement instanceof HTMLParagraphElement)
+    puntuacionElement.textContent = `Puntuación: ${puntuacion}`;
+  if (
+    mePlantoButton &&
+    mePlantoButton instanceof HTMLButtonElement &&
+    puntuacion > 0
+  )
+    mePlantoButton.style.display = "block";
 };
 
-const dameCarta = () => {
-  let randomCarta = Math.floor(Math.random() * maxCarta) + minCarta;
-  if (randomCarta > 7) randomCarta += 2;
-  mostrarCarta(randomCarta);
-  if (randomCarta === 10 || randomCarta === 11 || randomCarta === 12)
-    randomCarta = 0.5;
-  puntuacion += randomCarta;
-  muestraPuntuacion();
-  mePlantoButton.style.display = "block";
-  gameOver();
+const setPuntuacion = (carta) => {
+  if (carta === 10 || carta === 11 || carta === 12) carta = 0.5;
+  puntuacion += carta;
+};
+
+const generarRandomCarta = () => {
+  return Math.floor(Math.random() * maxCarta) + minCarta;
+};
+
+const comprobarCartaMayorASiete = (carta) => {
+  if (carta > 7) return (carta += 2);
+  return carta;
 };
 
 const mostrarCarta = (carta) => {
-  if (cartasContainer) {
+  if (cartasContainer && cartasContainer instanceof HTMLDivElement) {
     const cartaElement = document.createElement("img");
     cartaElement.setAttribute("src", `${carta}.jpg`);
     cartaElement.setAttribute("class", "carta-img");
@@ -39,88 +48,154 @@ const mostrarCarta = (carta) => {
   }
 };
 
+const dameCarta = () => {
+  let carta = generarRandomCarta();
+  carta = comprobarCartaMayorASiete(carta);
+  mostrarCarta(carta);
+  setPuntuacion(carta);
+  muestraPuntuacion();
+  gameOver();
+};
+
 const gameOver = () => {
-  if (puntuacion > 7.5) {
-    dameCartaButton.style.opacity = 0.5;
+  if (
+    puntuacion > 7.5 &&
+    dameCartaButton &&
+    dameCartaButton instanceof HTMLButtonElement &&
+    gameOverElement &&
+    gameOverElement instanceof HTMLDivElement
+  ) {
+    dameCartaButton.style.opacity = "0.5";
     dameCartaButton.style.pointerEvents = "none";
     gameOverElement.style.display = "flex";
   }
 };
 
-const mostrarMensajeMePlanto = () => {
-  let mensaje = "";
+const comprobarPuntuacion = () => {
   if (puntuacion <= 4) {
-    mensaje = "Has sido muy conservador";
+    return "Has sido muy conservador";
   } else if (puntuacion <= 5) {
-    mensaje = "Te ha entrado el canguelo eh?";
+    return "Te ha entrado el canguelo eh?";
   } else if (puntuacion <= 6 || puntuacion <= 7) {
-    mensaje = "Casi casi...";
+    return "Casi casi...";
   } else if (puntuacion === 7.5) {
-    mensaje = "¡Lo has clavado!¡Enhorabuena!";
+    return "¡Lo has clavado!¡Enhorabuena!";
   }
-  console.log(mensaje);
-  resultado.textContent = mensaje;
-  dameCartaButton.style.pointerEvents = "none";
-  dameCartaButton.style.opacity = 0.5;
-  mePlantoButton.style.pointerEvents = "none";
-  mePlantoButton.style.opacity = 0.5;
-  reiniciarButton.style.display = "block";
-  futuroButton.style.display = "block";
-  futuroButton.style.pointerEvents = "auto";
+  return "";
+};
+
+const mostrarMensajeMePlanto = () => {
+  const mensaje = comprobarPuntuacion();
+  if (resultado && resultado instanceof HTMLParagraphElement)
+    resultado.textContent = mensaje;
+  if (dameCartaButton && dameCartaButton instanceof HTMLButtonElement) {
+    dameCartaButton.style.pointerEvents = "none";
+    dameCartaButton.style.opacity = "0.5";
+  }
+
+  if (mePlantoButton && mePlantoButton instanceof HTMLButtonElement) {
+    mePlantoButton.style.pointerEvents = "none";
+    mePlantoButton.style.opacity = "0.5";
+  }
+  if (reiniciarButton && reiniciarButton instanceof HTMLButtonElement)
+    reiniciarButton.style.display = "block";
+
+  if (
+    futuroButton &&
+    futuroButton instanceof HTMLButtonElement &&
+    puntuacion < 7.5
+  ) {
+    futuroButton.style.display = "block";
+    futuroButton.style.pointerEvents = "auto";
+  }
 };
 
 const reiniciarJuego = () => {
   puntuacion = 0;
   muestraPuntuacion();
-  resultado.textContent = "";
-  resultado2.textContent = "";
-  dameCartaButton.style.pointerEvents = "auto";
-  dameCartaButton.style.opacity = 1;
-  mePlantoButton.style.pointerEvents = "auto";
-  mePlantoButton.style.opacity = 1;
-  mePlantoButton.style.display = "none";
-  futuroButton.style.display = "none";
-  futuroButton.style.opacity = 1;
-  futuroButton.style.pointerEvents = "auto";
-  reiniciarButton.style.display = "none";
-  gameOverElement.style.display = "none";
-  cartasContainer.innerHTML = "";
-};
-
-document.addEventListener("DOMContentLoaded", () => {
-  muestraPuntuacion();
-  reiniciarButton.style.display = "none";
-  gameOverElement.style.display = "none";
-  mePlantoButton.style.display = "none";
-  futuroButton.style.display = "none";
-
-  dameCartaButton?.addEventListener("click", () => dameCarta());
-
-  mePlantoButton?.addEventListener("click", () => mostrarMensajeMePlanto());
-
-  if (puntuacion === 7.5) {
-    futuroButton.style.pointerEvents = "none";
-    futuroButton.style.opacity = 0.5;
-  } else {
-    futuroButton?.addEventListener("click", () => {
-      resultado.textContent = "";
-      let randomCarta = Math.floor(Math.random() * maxCarta) + minCarta;
-      if (randomCarta > 7) randomCarta += 2;
-      mostrarCarta(randomCarta);
-      if (randomCarta === 10 || randomCarta === 11 || randomCarta === 12)
-        randomCarta = 0.5;
-      puntuacion += randomCarta;
-      muestraPuntuacion();
-      if (puntuacion < 7.5) {
-        resultado2.textContent = "Confía más en ti mismo la próxima vez";
-      } else {
-        resultado2.textContent = "Hubieras perdido, bien hecho";
-      }
-      futuroButton.style.opacity = 0.5;
-      futuroButton.style.pointerEvents = "none";
-    });
+  if (
+    resultado &&
+    resultado instanceof HTMLParagraphElement &&
+    resultado2 &&
+    resultado2 instanceof HTMLParagraphElement
+  ) {
+    resultado.textContent = "";
+    resultado2.textContent = "";
   }
 
-  reiniciarButton?.addEventListener("click", () => reiniciarJuego());
-  reiniciarGameOverButton?.addEventListener("click", () => reiniciarJuego());
-});
+  if (dameCartaButton && dameCartaButton instanceof HTMLButtonElement) {
+    dameCartaButton.style.pointerEvents = "auto";
+    dameCartaButton.style.opacity = "1";
+  }
+
+  if (mePlantoButton && mePlantoButton instanceof HTMLButtonElement) {
+    mePlantoButton.style.pointerEvents = "auto";
+    mePlantoButton.style.opacity = "1";
+    mePlantoButton.style.display = "none";
+  }
+
+  if (futuroButton && futuroButton instanceof HTMLButtonElement) {
+    futuroButton.style.display = "none";
+    futuroButton.style.opacity = "1";
+    futuroButton.style.pointerEvents = "auto";
+  }
+
+  if (reiniciarButton && reiniciarButton instanceof HTMLButtonElement)
+    reiniciarButton.style.display = "none";
+  if (gameOverElement && gameOverElement instanceof HTMLDivElement)
+    gameOverElement.style.display = "none";
+  if (cartasContainer && cartasContainer instanceof HTMLDivElement)
+    cartasContainer.innerHTML = "";
+};
+
+const queHubieraPasado = () => {
+  if (resultado && resultado instanceof HTMLParagraphElement)
+    resultado.textContent = "";
+  const futuraCarta = generarRandomCarta();
+  comprobarCartaMayorASiete(futuraCarta);
+  mostrarCarta(futuraCarta);
+  setPuntuacion(futuraCarta);
+  muestraPuntuacion();
+  if (resultado2 && resultado2 instanceof HTMLParagraphElement)
+    resultado2.textContent = comprobarMensajeFuturo();
+  if (futuroButton && futuroButton instanceof HTMLButtonElement) {
+    futuroButton.style.opacity = "0.5";
+    futuroButton.style.pointerEvents = "none";
+  }
+};
+
+const comprobarMensajeFuturo = () => {
+  if (puntuacion < 7.5) return "Confía mas en ti mismo la próxima vez";
+  return "Hubieras perdido, bien hecho";
+};
+
+const initGame = () => {
+  muestraPuntuacion();
+  if (reiniciarButton && reiniciarButton instanceof HTMLButtonElement)
+    reiniciarButton.style.display = "none";
+  if (gameOverElement && gameOverElement instanceof HTMLDivElement)
+    gameOverElement.style.display = "none";
+  if (mePlantoButton && mePlantoButton instanceof HTMLButtonElement)
+    mePlantoButton.style.display = "none";
+  if (futuroButton && futuroButton instanceof HTMLButtonElement)
+    futuroButton.style.display = "none";
+
+  if (dameCartaButton && dameCartaButton instanceof HTMLButtonElement)
+    dameCartaButton.addEventListener("click", dameCarta);
+
+  if (mePlantoButton && mePlantoButton instanceof HTMLButtonElement)
+    mePlantoButton.addEventListener("click", mostrarMensajeMePlanto);
+
+  if (futuroButton && futuroButton instanceof HTMLButtonElement)
+    futuroButton.addEventListener("click", queHubieraPasado);
+
+  if (reiniciarButton && reiniciarButton instanceof HTMLButtonElement)
+    reiniciarButton.addEventListener("click", reiniciarJuego);
+  if (
+    reiniciarGameOverButton &&
+    reiniciarGameOverButton instanceof HTMLButtonElement
+  )
+    reiniciarGameOverButton.addEventListener("click", reiniciarJuego);
+};
+
+document.addEventListener("DOMContentLoaded", initGame);
