@@ -1,15 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
-  </head>
-  <body>
-    <div id="app">
-      <h1>TypeScript Sandbox</h1>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite + TS</title>
+</head>
+
+<body>
+  <div id="app">
+    <h1>App Memoria</h1>
+    <div class="container">
+      <div class="intentos-container">
+        <p>Intentos</p>
+        <p id="intentos"></p>
+      </div>
+      <button id="iniciar-button">Empezar Partida</button>
     </div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+    <div class="cards-container">
+      <div class="card" data-indice-array="0">
+        <img class="card-img" src="" data-indice-imagen="0" />
+      </div>
+      <div class="card" data-indice-array="1">
+        <img class="card-img" src="" data-indice-imagen="1" />
+      </div>
+      <div class="card" data-indice-array="2">
+        <img class="card-img" src="" data-indice-imagen="2" />
+      </div>
+      <div class="card" data-indice-array="3">
+        <img class="card-img" src="" data-indice-imagen="3" />
+      </div>
+      <div class="card" data-indice-array="4">
+        <img class="card-img" src="" data-indice-imagen="4" />
+      </div>
+      <div class="card" data-indice-array="5">
+        <img class="card-img" src="" data-indice-imagen="5" />
+      </div>
+      <div class="card" data-indice-array="6">
+        <img class="card-img" src="" data-indice-imagen="6" />
+      </div>
+      <div class="card" data-indice-array="7">
+        <img class="card-img" src="" data-indice-imagen="7" />
+      </div>
+      <div class="card" data-indice-array="8">
+        <img class="card-img" src="" data-indice-imagen="8" />
+      </div>
+      <div class="card" data-indice-array="9">
+        <img class="card-img" src="" data-indice-imagen="9" />
+      </div>
+      <div class="card" data-indice-array="10">
+        <img class="card-img" src="" data-indice-imagen="10" />
+      </div>
+      <div class="card" data-indice-array="11">
+        <img class="card-img" src="" data-indice-imagen="11" />
+      </div>
+    </div>
+  </div>
+  <div id="victoria">
+    <h2>¡Has ganado!</h2>
+    <button id="reiniciar-button">Volver a jugar</button>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>
