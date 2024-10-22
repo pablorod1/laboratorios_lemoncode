@@ -1,3 +1,4 @@
 import "./style.css";
+import { handleBuscar } from "./ui";
 
-console.log("Hello Typescript!");
+document.addEventListener("DOMContentLoaded", handleBuscar);

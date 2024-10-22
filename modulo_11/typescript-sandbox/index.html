@@ -1,15 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
-  </head>
-  <body>
-    <div id="app">
-      <h1>TypeScript Sandbox</h1>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite + TS</title>
+</head>
+
+<body>
+  <div id="app">
+    <h1>TypeScript Sandbox</h1>
+    <div class="container">
+      <div class="search-container">
+        <label class="input-label" for="input-IBAN">Introduzca el IBAN</label>
+        <div class="input-container">
+          <input type="text" id="input-IBAN" class="input-IBAN" placeholder="ES21 1465 0100 72 2030876293" />
+          <button id="boton-buscar" class="search-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-search">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+              <path d="M21 21l-6 -6" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="info-container">
+        <p id="bien-formado"></p>
+        <p id="es-valido"></p>
+        <p id="nombre-banco"></p>
+        <p id="codigo-sucursal"></p>
+        <p id="digito-control"></p>
+        <p id="numero-cuenta"></p>
+      </div>
     </div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>
