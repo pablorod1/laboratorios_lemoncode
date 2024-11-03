@@ -1,3 +1,4 @@
+import { REQUIRED_FIELD_MESSAGE } from "@/common/validation";
 import { validateForm } from "./login.validation";
 import { Credentials } from "./login.vm";
 
@@ -24,7 +25,7 @@ describe("pages/login/login.validation", () => {
     const result = validateForm(credentials);
 
     expect(result.succeeded).toBeFalsy();
-    expect(result.errors.user).toEqual("Debe introducir un usuario");
+    expect(result.errors.user).toEqual(REQUIRED_FIELD_MESSAGE);
     expect(result.errors.password).toEqual("");
   });
 
@@ -38,7 +39,7 @@ describe("pages/login/login.validation", () => {
 
     expect(result.succeeded).toBeFalsy();
     expect(result.errors.user).toEqual("");
-    expect(result.errors.password).toEqual("Debe introducir una contraseña");
+    expect(result.errors.password).toEqual(REQUIRED_FIELD_MESSAGE);
   });
 
   it("should return validation failed when both fields are empty", () => {
@@ -50,7 +51,7 @@ describe("pages/login/login.validation", () => {
     const result = validateForm(credentials);
 
     expect(result.succeeded).toBeFalsy();
-    expect(result.errors.user).toEqual("Debe introducir un usuario");
-    expect(result.errors.password).toEqual("Debe introducir una contraseña");
+    expect(result.errors.user).toEqual(REQUIRED_FIELD_MESSAGE);
+    expect(result.errors.password).toEqual(REQUIRED_FIELD_MESSAGE);
   });
 });

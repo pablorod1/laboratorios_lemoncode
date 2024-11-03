@@ -1,36 +1,23 @@
+import { CredentialsFormErrors, Credentials } from "./login.vm";
+import { FormValidationResult } from "@/common/validation";
 import {
-  createEmptyCredentialsFormErrors,
-  CredentialsFormErrors,
-} from "./login.vm";
-
-interface ValidationResult {
-  succeeded: boolean;
-  errors: CredentialsFormErrors;
-}
+  validatePasswordField,
+  validateUserField,
+} from "./login-field.validation";
 
 export const validateForm = (
-  credentials: CredentialsFormErrors
-): ValidationResult => {
-  let validationResult: ValidationResult = {
-    succeeded: true,
-    errors: createEmptyCredentialsFormErrors(),
+  credentials: Credentials
+): FormValidationResult<CredentialsFormErrors> => {
+  const fieldValidationResults = [
+    validateUserField(credentials.user),
+    validatePasswordField(credentials.password),
+  ];
+
+  return {
+    succeeded: fieldValidationResults.every((f) => f.succeeded),
+    errors: {
+      user: fieldValidationResults[0].errorMessage ?? "",
+      password: fieldValidationResults[1].errorMessage ?? "",
+    },
   };
-
-  if (!credentials.user.trim()) {
-    validationResult.succeeded = false;
-    validationResult.errors = {
-      ...validationResult.errors,
-      user: "Debe introducir un usuario",
-    };
-  }
-
-  if (!credentials.password.trim()) {
-    validationResult.succeeded = false;
-    validationResult.errors = {
-      ...validationResult.errors,
-      password: "Debe introducir una contraseña",
-    };
-  }
-
-  return validationResult;
 };

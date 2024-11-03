@@ -23,6 +23,22 @@
       "name": "Ahorro",
       "balance": 8500,
       "lastTransaction": "2019-11-15T08:29:04"
+    },
+    {
+      "iban": "IL20 2900 5700 9719 1085 009",
+      "name": "Pablo",
+      "type": "Cuenta Corriente",
+      "balance": 0,
+      "lastTransaction": "2024-11-03T10:33:42.928Z",
+      "id": "fNO4Cod"
+    },
+    {
+      "iban": "BE65 5050 0093 1001",
+      "name": "Pablo Rodriguez Albarran",
+      "type": "Cuenta de Ahorro",
+      "balance": 0,
+      "lastTransaction": "2024-11-03T10:38:20.924Z",
+      "id": "Dzp2KVT"
     }
   ],
   "movements": [

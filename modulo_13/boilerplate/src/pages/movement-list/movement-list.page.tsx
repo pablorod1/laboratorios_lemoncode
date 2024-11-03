@@ -7,8 +7,9 @@ import { AccountDetails, getAccountDetails, getMovements } from "./api";
 import { mapMovementListFromApiToVm } from "./movement-list.mapper";
 
 export const MovementListPage: React.FC = () => {
-  const [movementList, setMovementList] = React.useState<MovementVm[]>([]);
   const accountId = location.pathname.split("/")[2];
+
+  const [movementList, setMovementList] = React.useState<MovementVm[]>([]);
   const [accountDetails, setAccountDetails] = React.useState<AccountDetails>({
     name: "",
     iban: "",
@@ -18,9 +19,7 @@ export const MovementListPage: React.FC = () => {
     getMovements(accountId).then((result) => {
       setMovementList(mapMovementListFromApiToVm(result));
     });
-  }, []);
 
-  React.useEffect(() => {
     getAccountDetails(accountId).then((result) => setAccountDetails(result));
   }, []);
 
